@@ -34,8 +34,7 @@ namespace WebApi.Services
         {
             return AddVolumeLevel(-SoundConsts.VolumeChange); 
         }
-
-
+        
         private int AddVolumeLevel(int value)
         {
             _defaultPlaybackDevice.Volume += value;

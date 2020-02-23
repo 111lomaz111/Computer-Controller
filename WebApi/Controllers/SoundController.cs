@@ -9,7 +9,7 @@ namespace WebApi.Controllers
 {
     [ApiController]
     [Route("Api/[controller]/[action]")]
-    public class SoundController
+    public class SoundController : Controller
     {
         private readonly ISoundService _soundService;
         public SoundController(ISoundService soundService)
@@ -21,46 +21,80 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult VolumeUp()
         {
-            string response;
+            string consoleMsg = $"Api/{nameof(SoundController)}/{nameof(VolumeUp)}: ";
+            Console.WriteLine($"{consoleMsg} Get into!");
+            int result = default;
             try
             {
-                response = _soundService.VolumeUp().ToString();
+                result = _soundService.VolumeUp();
             }
             catch (Exception ex)
             {
-                response = ex.Message;
+                Console.WriteLine($"{consoleMsg} Exception : {ex.Message}");
+                return new JsonResult (new BadRequestObjectResult(ex.Message));
             }
-            return new JsonResult(response);
+
+            Console.WriteLine($"{consoleMsg} Get out!");
+            return new JsonResult(new OkObjectResult(result));
         }
 
         [HttpGet]
         public IActionResult VolumeDown()
         {
-            string response;
+            string consoleMsg = $"Api/{nameof(SoundController)}/{nameof(VolumeDown)}: ";
+            Console.WriteLine($"{consoleMsg} Get into!");
+            int result = default;
             try
             {
-                response = _soundService.VolumeDown().ToString();
+                result = _soundService.VolumeDown();
             }
             catch (Exception ex)
             {
-                response = ex.Message;
+                Console.WriteLine($"{consoleMsg} Exception : {ex.Message}");
+                return new JsonResult(new BadRequestObjectResult(ex.Message));
             }
-            return new JsonResult(response);
+
+            Console.WriteLine($"{consoleMsg} Get out!");
+            return new JsonResult(new OkObjectResult(result));
         } 
 
         [HttpGet]
         public IActionResult Mute()
         {
-            string response;
+            string consoleMsg = $"Api/{nameof(SoundController)}/{nameof(Mute)}: ";
+            Console.WriteLine($"{consoleMsg} Get into!");
+            bool result = default;
             try
             {
-                response = _soundService.Mute().ToString();
+                result = _soundService.Mute();
             }
             catch (Exception ex)
             {
-                response = ex.Message;
+                Console.WriteLine($"{consoleMsg} Exception : {ex.Message}");
+                return new JsonResult(new BadRequestObjectResult(ex.Message));
             }
-            return new JsonResult(response);
-        } 
+
+            Console.WriteLine($"{consoleMsg} Get out!");
+            return new JsonResult(new OkObjectResult(result));
+        }
+
+
+        [HttpGet]
+        public IActionResult CheckConnection()
+        {
+            string result = "Connected!";
+            return new JsonResult(new OkObjectResult(result));
+        }
+        [HttpGet]
+        public IActionResult CheckConnection2()
+        {
+            string result = "Connected!";
+            return new OkObjectResult(result);
+        }        [HttpGet]
+        public IActionResult CheckConnection3()
+        {
+            string result = "Connected!";
+            return new JsonResult(result);
+        }
     }
 }
