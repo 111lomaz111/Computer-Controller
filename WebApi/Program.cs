@@ -22,7 +22,7 @@ namespace WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls(WebHelper.GetLocalIPAddressWithPort());
+                    webBuilder.UseUrls(WebHelper.GetWebAPIListenAddress());
                 });
     }
 }

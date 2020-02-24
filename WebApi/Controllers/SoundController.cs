@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApi.Interfaces;
 
 namespace WebApi.Controllers
@@ -17,12 +14,12 @@ namespace WebApi.Controllers
             _soundService = soundService;
         }
 
-
         [HttpGet]
         public IActionResult VolumeUp()
         {
             string consoleMsg = $"Api/{nameof(SoundController)}/{nameof(VolumeUp)}: ";
             Console.WriteLine($"{consoleMsg} Get into!");
+
             int result = default;
             try
             {
@@ -43,6 +40,7 @@ namespace WebApi.Controllers
         {
             string consoleMsg = $"Api/{nameof(SoundController)}/{nameof(VolumeDown)}: ";
             Console.WriteLine($"{consoleMsg} Get into!");
+
             int result = default;
             try
             {
@@ -63,6 +61,7 @@ namespace WebApi.Controllers
         {
             string consoleMsg = $"Api/{nameof(SoundController)}/{nameof(Mute)}: ";
             Console.WriteLine($"{consoleMsg} Get into!");
+
             bool result = default;
             try
             {
@@ -82,19 +81,13 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult CheckConnection()
         {
+            string consoleMsg = $"Api/{nameof(SoundController)}/{nameof(CheckConnection)}: ";
+            Console.WriteLine($"{consoleMsg} Get into!");
+
             string result = "Connected!";
+
+            Console.WriteLine($"{consoleMsg} Get out!");
             return new JsonResult(new OkObjectResult(result));
-        }
-        [HttpGet]
-        public IActionResult CheckConnection2()
-        {
-            string result = "Connected!";
-            return new OkObjectResult(result);
-        }        [HttpGet]
-        public IActionResult CheckConnection3()
-        {
-            string result = "Connected!";
-            return new JsonResult(result);
         }
     }
 }
