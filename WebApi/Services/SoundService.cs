@@ -13,7 +13,6 @@ namespace WebApi.Services
     {
         private CoreAudioDevice _defaultPlaybackDevice;
 
-
         public SoundService()
         {
             _defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MobileClient.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +18,9 @@ namespace MobileClient.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConnectPage : ContentPage
     {
+
+        private IWeb _webService => DependencyService.Get<IWeb>();
+
         ObservableCollection<IPAdr> _iPAddresses = new ObservableCollection<IPAdr>();
         public ObservableCollection<IPAdr> IPAddresses { get { return _iPAddresses; } }
 
@@ -24,45 +28,11 @@ namespace MobileClient.Views
         public ConnectPage()
         {
             InitializeComponent();
-            _iPAddresses.Add(new IPAdr("127.0.0.1"));
-
             IpAddressesListView.ItemsSource = IPAddresses;
-            GetDevices();
+            ShowLoadingIndicator(false);
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            IPAddress ip = IPAddress.Parse(IpAddressEntry.Text);
-            Task.Run(() => CheckApiConnection(ip));
-        }
-
-
-        private void GetDevices()
-        {
-            for (int i = 0; i < 254; i++)
-            {
-                Task.Run(async () =>
-                {
-                    //Console.WriteLine($"{nameof(GetDevices)}/{i}/1");
-                    IPAddress ip = IPAddress.Parse($"192.168.1.{i}");
-                    var ping = new Ping();
-                    byte[] packet = new byte[1];
-
-                    //Console.WriteLine($"{nameof(GetDevices)}/{i}/2");
-                    var reply = ping.Send(ip, 100, packet);
-                    //Console.WriteLine($"{nameof(GetDevices)}/{i}/3");
-
-                    if (reply.Status == IPStatus.Success)
-                    {
-                        await CheckApiConnection(reply.Address);
-                    }
-                });
-                Console.WriteLine($"{nameof(GetDevices)}/{i}");
-            }
-            DisplayAlert("GetDevices", "Endend", "OkeY");
-        }
-
-        private async Task CheckApiConnection(IPAddress iPAddress)
+        private async Task<bool> CheckApiConnection(IPAddress iPAddress)
         {
             HttpRequestMessage request = new HttpRequestMessage();
             request.RequestUri = new Uri($"http://{iPAddress}/Api/Sound/CheckConnection");
@@ -78,18 +48,15 @@ namespace MobileClient.Views
                     string ip = iPAddress.ToString();
                     if (!_iPAddresses.Any(x => x.Name == ip))
                     {
-                        _iPAddresses.Add(new IPAdr(ip));
+                        //_iPAddresses.Add(new IPAdr(ip));
+                        return true;
                     }
                 }
             }
             catch (Exception ex) { }
 
-            //var content = await response.Content.ReadAsStringAsync();
-            //dynamic aoe = JsonConvert.DeserializeObject<dynamic>(content);
-            //
-            //await DisplayAlert(response.StatusCode.ToString(), "", "Cancel");
+            return false;
         }
-
 
         public class IPAdr
         {
@@ -99,6 +66,39 @@ namespace MobileClient.Views
             {
                 Name = name;
             }
+        }
+
+        private void Button_Clicked_1(object sender, EventArgs e)
+        {
+            Task.Run(() => SearchDevices());
+        }
+
+        private async void SearchDevices()
+        {
+            ShowLoadingIndicator(true);
+
+            _iPAddresses.Clear();
+
+            var ips = await _webService.Arp_a();
+
+            ips.ToList().ForEach(x =>
+            {
+                if (CheckApiConnection(x).Result)
+                {
+                    _iPAddresses.Add(new IPAdr(x.ToString()));
+                }
+            });
+
+            ShowLoadingIndicator(false);
+        }
+
+        private void ShowLoadingIndicator(bool isEnable)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                listIndicator.IsVisible = isEnable;
+                listIndicator.IsRunning = isEnable;
+            });
         }
     }
 }

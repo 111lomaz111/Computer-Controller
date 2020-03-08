@@ -7,23 +7,24 @@
              x:Class="MobileClient.Views.ConnectPage">
     <ContentPage.Content>
         <StackLayout>
+            <Button Text="Get devices list"
+                    Clicked="Button_Clicked_1"
+                    x:Name="SearchDevicesButton"
+                    />
+
+            <ActivityIndicator IsRunning="{Binding Source={x:Reference IpAddressesListView}, Path=IsLoading}"
+                               AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0,0,-1,-1" 
+                               x:Name="listIndicator"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
             <ListView
                 x:Name="IpAddressesListView"
                 ItemsSource="{Binding IPAddresses}"
-                VerticalOptions="FillAndExpand"
-                RefreshControlColor="Red">
+                VerticalOptions="FillAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Name}"/>
+                        <TextCell Text=" {Binding Name}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Entry x:Name="IpAddressEntry"
-                   Placeholder="127.0.0.1:0"
-                   Keyboard="Default"/>
-            <Button Text="Connect"
-                    Clicked="Button_Clicked"></Button>
-            <Label x:Name="ResponseLabel"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

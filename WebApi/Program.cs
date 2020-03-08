@@ -24,5 +24,6 @@ namespace WebApi
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseUrls(WebHelper.GetWebAPIListenAddress());
                 });
+        
     }
 }
