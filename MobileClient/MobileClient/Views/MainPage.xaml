@@ -3,9 +3,12 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			xmlns:vm="clr-namespace:MobileClient.ViewModels"
             mc:Ignorable="d"
+            x:Name="tabbedPagos"
             xmlns:views="clr-namespace:MobileClient.Views"
-            x:Class="MobileClient.Views.MainPage">
+            x:Class="MobileClient.Views.MainPage"
+			x:DataType="{x:Type vm:MainPageViewModel}">
 
     <TabbedPage.Children>
         <NavigationPage Title="Connect">
@@ -15,7 +18,7 @@
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
-                <views:ConnectPage />
+                <views:ConnectPage BindingContext="{Binding .}" />
             </x:Arguments>
         </NavigationPage>
         
@@ -26,7 +29,7 @@
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
-                <views:SoundControllerPage />
+				<views:SoundControllerPage BindingContext="{Binding .}"/>
             </x:Arguments>
         </NavigationPage>
     </TabbedPage.Children>

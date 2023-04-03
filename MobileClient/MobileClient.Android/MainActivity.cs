@@ -37,7 +37,6 @@ namespace MobileClient.Droid
 
         private void DependeciesRegister()
         {
-            DependencyService.Register<IWeb, Web>();
         }
     }
 }

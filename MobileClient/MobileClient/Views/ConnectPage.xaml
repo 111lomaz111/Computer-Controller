@@ -3,21 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			xmlns:vm="clr-namespace:MobileClient.ViewModels"
              mc:Ignorable="d"
-             x:Class="MobileClient.Views.ConnectPage">
+             x:Class="MobileClient.Views.ConnectPage"
+			x:DataType="{x:Type vm:MainPageViewModel}">
     <ContentPage.Content>
         <StackLayout>
             <Button Text="Get devices list"
                     Clicked="Button_Clicked_1"
-                    x:Name="SearchDevicesButton"
-                    />
+                    x:Name="SearchDevicesButton"/>
 
-            <ActivityIndicator IsRunning="{Binding Source={x:Reference IpAddressesListView}, Path=IsLoading}"
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
                                AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0,0,-1,-1" 
                                x:Name="listIndicator"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
             <ListView
                 x:Name="IpAddressesListView"
                 ItemsSource="{Binding IPAddresses}"
+				SelectedItem="{Binding SelectedServer}"
                 VerticalOptions="FillAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>

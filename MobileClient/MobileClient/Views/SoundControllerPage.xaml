@@ -3,22 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:MobileClient.ViewModels"
              mc:Ignorable="d"
-             x:Class="MobileClient.Views.SoundControllerPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to SoundControllerPage!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Volume level:"/>
-                <Label x:Name="VolumeLevelLabel"/>
-
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Button Text="+" Clicked="VolumeUp"></Button>
-                <Button Text="-" Clicked="VolumeDown"></Button>
-            </StackLayout>
-        </StackLayout>
-    </ContentPage.Content>
+             x:Class="MobileClient.Views.SoundControllerPage"
+			 x:DataType="{x:Type vm:MainPageViewModel}">
+	
+	<ContentPage.Content>
+		<StackLayout HorizontalOptions="CenterAndExpand">
+			<StackLayout Orientation="Horizontal">
+				<Label Text="Volume level:"/>
+				<Label x:Name="VolumeLevelLabel"/>
+			</StackLayout>
+			<StackLayout Orientation="Horizontal">
+				<Button Text="+" Clicked="VolumeUp"></Button>
+				<Button Text="-" Clicked="VolumeDown"></Button>
+			</StackLayout>
+		</StackLayout>
+	</ContentPage.Content>
 </ContentPage>

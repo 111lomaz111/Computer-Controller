@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileClient.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,15 @@ namespace MobileClient.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SoundControllerPage : ContentPage
     {
+        private MainPageViewModel _viewModel;
         public SoundControllerPage()
         {
             InitializeComponent();
+        }
+
+        public void Set()
+        {
+
         }
 
         private void VolumeDown(object sender, EventArgs e)

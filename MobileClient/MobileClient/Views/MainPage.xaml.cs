@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileClient.ViewModels;
+using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,8 +11,13 @@ namespace MobileClient.Views
     [DesignTimeVisible(false)]
     public partial class MainPage : TabbedPage
     {
+        private MainPageViewModel _viewModel;
+
         public MainPage()
         {
+            _viewModel = new MainPageViewModel();
+            BindingContext = _viewModel;
+
             InitializeComponent();
         }
     }

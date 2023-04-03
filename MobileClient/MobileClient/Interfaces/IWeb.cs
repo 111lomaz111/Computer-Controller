@@ -8,6 +8,8 @@ namespace MobileClient.Interfaces
 {
     public interface IWeb
     {
-        Task<List<IPAddress>> Arp_a();
+        void Listen(Action<IPAddress> actionOnHit);
+        Task<bool> CheckApiConnection(IPAddress iPAddress);
+
     }
 }

@@ -13,7 +13,8 @@ namespace MobileClient
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            DependencyService.Register<WebListener>();
+
             MainPage = new MainPage();
         }
 
