@@ -10,6 +10,9 @@
 	
 	<ContentPage.Content>
 		<StackLayout HorizontalOptions="CenterAndExpand">
+            <StackLayout>
+                <Label Text="{Binding SelectedServer.Name}"/>
+            </StackLayout>
 			<StackLayout Orientation="Horizontal">
 				<Label Text="Volume level:"/>
 				<Label x:Name="VolumeLevelLabel"/>

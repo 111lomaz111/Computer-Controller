@@ -16,7 +16,11 @@ namespace MobileClient.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         public ObservableCollection<ServerInformation> Servers { get; internal set; } = new ObservableCollection<ServerInformation>();
-        public ServerInformation SelectedServer { get; set; }
+        public ServerInformation _selectedServer;
+        public ServerInformation SelectedServer { 
+            get => _selectedServer;
+            set => SetProperty(ref _selectedServer, value);
+        }
 
         public ICommand SearchServersCommand { get; }
         private IWeb _webService => DependencyService.Get<IWeb>();

@@ -3,14 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			xmlns:vm="clr-namespace:MobileClient.ViewModels"
+			 xmlns:vm="clr-namespace:MobileClient.ViewModels"
+			 xmlns:m="clr-namespace:MobileClient.Models"
              mc:Ignorable="d"
              x:Class="MobileClient.Views.ConnectPage"
 			x:DataType="{x:Type vm:MainPageViewModel}">
     <ContentPage.Content>
         <StackLayout>
             <Button Text="Get devices list"
-                    Clicked="Button_Clicked_1"
+                    Command="{Binding SearchServersCommand}"
                     x:Name="SearchDevicesButton"/>
 
             <ActivityIndicator IsRunning="{Binding IsBusy}"
@@ -18,12 +19,12 @@
                                x:Name="listIndicator"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
             <ListView
                 x:Name="IpAddressesListView"
-                ItemsSource="{Binding IPAddresses}"
+                ItemsSource="{Binding Servers}"
 				SelectedItem="{Binding SelectedServer}"
                 VerticalOptions="FillAndExpand">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text=" {Binding Name}"/>
+                    <DataTemplate x:DataType="{x:Type m:ServerInformation}">
+                        <TextCell Text="{Binding Name}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
