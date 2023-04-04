@@ -20,31 +20,9 @@ namespace MobileClient.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConnectPage : ContentPage
     { 
-        private MainPageViewModel _viewModel;
-        private IWeb _webService => DependencyService.Get<IWeb>();
-
-
         public ConnectPage()
         {
             InitializeComponent();
-            ShowLoadingIndicator(false);
-        }
-
-
-        private void Button_Clicked_1(object sender, EventArgs e)
-        {
-            Task.Run(() => _viewModel.SearchDevices());
-        }
-
-
-
-        private void ShowLoadingIndicator(bool isEnable)
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                listIndicator.IsVisible = isEnable;
-                listIndicator.IsRunning = isEnable;
-            });
         }
     }
 }

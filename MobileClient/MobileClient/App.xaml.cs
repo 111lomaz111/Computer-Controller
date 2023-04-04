@@ -8,12 +8,15 @@ namespace MobileClient
 {
     public partial class App : Application
     {
+        
+
 
         public App()
         {
             InitializeComponent();
 
             DependencyService.Register<WebListener>();
+            DependencyService.Register<RestClientService>();
 
             MainPage = new MainPage();
         }

@@ -9,18 +9,20 @@
 			 x:DataType="{x:Type vm:MainPageViewModel}">
 	
 	<ContentPage.Content>
-		<StackLayout HorizontalOptions="CenterAndExpand">
+		<StackLayout Padding="10">
             <StackLayout>
-                <Label Text="{Binding SelectedServer.Name}"/>
+                <Label Text="{Binding SelectedServer.Name, StringFormat='Server: {0}'}"/>
             </StackLayout>
 			<StackLayout Orientation="Horizontal">
-				<Label Text="Volume level:"/>
-				<Label x:Name="VolumeLevelLabel"/>
+                <Label Text="{Binding CurrentVolumeLevel, StringFormat='Current level: {0}'}"/>
 			</StackLayout>
+            <StackLayout >
+                <Slider Value="{Binding CurrentVolumeLevel}" Minimum="0" Maximum="100" MinimumTrackColor="Red" MaximumTrackColor="Blue"/>
+            </StackLayout>
 			<StackLayout Orientation="Horizontal">
-				<Button Text="+" Clicked="VolumeUp"></Button>
-				<Button Text="-" Clicked="VolumeDown"></Button>
-			</StackLayout>
+                <Button Text="+" Command="{Binding ChangeVolumeCommand}" CommandParameter="2"/>
+                <Button Text="-" Command="{Binding ChangeVolumeCommand}" CommandParameter="-2"/>
+            </StackLayout>
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

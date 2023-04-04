@@ -22,5 +22,7 @@ namespace WebApi.Interfaces
         /// </summary>
         /// <returns>Current volume loudness in percent points.</returns>
         public int VolumeDown();
+
+        public bool ChangeByValue(int value);
     }
 }

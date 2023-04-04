@@ -10,8 +10,6 @@ namespace MobileClient.Services
 {
     public class WebListener : IWeb
     {
-        public static readonly int SERVER_PORT = 1337;
-
         public void Listen(Action<IPAddress> actionOnHit)
         {
             Listener(actionOnHit);
@@ -20,7 +18,7 @@ namespace MobileClient.Services
         private Task Listener(Action<IPAddress> actionOnHit)
         {
             UdpClient udpClient = new UdpClient();
-            udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, SERVER_PORT));
+            udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, Constants.Server.LISTENING_PORT));
 
             var from = new IPEndPoint(0, 0);
             var task = Task.Run(() =>
@@ -38,14 +36,14 @@ namespace MobileClient.Services
             });
 
             var data = Encoding.UTF8.GetBytes("Hello SoundController");
-            udpClient.Send(data, data.Length, new IPEndPoint(IPAddress.Broadcast, SERVER_PORT));
+            udpClient.Send(data, data.Length, new IPEndPoint(IPAddress.Broadcast, Constants.Server.LISTENING_PORT));
             
             return Task.FromResult<object>(null);
         }
         public async Task<bool> CheckApiConnection(IPAddress iPAddress)
         {
             HttpRequestMessage request = new HttpRequestMessage();
-            request.RequestUri = new Uri($"http://{iPAddress}:{SERVER_PORT}/Api/Sound/CheckConnection");
+            request.RequestUri = new Uri($"http://{iPAddress}:{Constants.Server.LISTENING_PORT}/Api/Sound/CheckConnection");
             request.Method = HttpMethod.Get;
             request.Headers.Add("Accept", "application/json");
             var client = new HttpClient();

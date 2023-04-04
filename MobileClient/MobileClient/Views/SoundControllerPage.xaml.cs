@@ -13,24 +13,9 @@ namespace MobileClient.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SoundControllerPage : ContentPage
     {
-        private MainPageViewModel _viewModel;
         public SoundControllerPage()
         {
             InitializeComponent();
-        }
-
-        public void Set()
-        {
-
-        }
-
-        private void VolumeDown(object sender, EventArgs e)
-        {
-
-        }
-        private void VolumeUp(object sender, EventArgs e)
-        {
-
         }
     }
 }

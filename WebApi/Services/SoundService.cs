@@ -40,5 +40,14 @@ namespace WebApi.Services
 
             return (int)_defaultPlaybackDevice.Volume;
         }
+
+        public bool ChangeByValue(int value)
+        {
+            double oldValue = _defaultPlaybackDevice.Volume;
+
+            _defaultPlaybackDevice.Volume = value;
+
+            return _defaultPlaybackDevice.Volume != oldValue;
+        }
     }
 }

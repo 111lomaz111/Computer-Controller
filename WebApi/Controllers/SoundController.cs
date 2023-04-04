@@ -57,7 +57,7 @@ namespace WebApi.Controllers
             return new JsonResult(new OkObjectResult(result));
         } 
 
-        [HttpGet]
+        [HttpPut]
         public IActionResult Mute()
         {
             string consoleMsg = $"Api/{nameof(SoundController)}/{nameof(Mute)}: ";
@@ -76,6 +76,33 @@ namespace WebApi.Controllers
 
             Console.WriteLine($"{consoleMsg} Get out!");
             return new JsonResult(new OkObjectResult(result));
+        }
+
+        [HttpPut("{value:int}")]
+        public IActionResult ChangeVolumeByValue(int value)
+        {
+            string consoleMsg = $"Api/{nameof(SoundController)}/{nameof(ChangeVolumeByValue)}: ";
+            Console.WriteLine($"{consoleMsg} Get into!");
+
+            bool isSuccess = default;
+            try
+            {
+                isSuccess = _soundService.ChangeByValue(value);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{consoleMsg} Exception : {ex.Message}");
+                return new JsonResult(new BadRequestObjectResult(ex.Message));
+            }
+
+            Console.WriteLine($"{consoleMsg} Get out!, IsSuccess: {isSuccess}");
+            if (isSuccess)
+            {
+                return new JsonResult(new OkResult());
+            }
+            else{
+                return new JsonResult(new BadRequestResult());
+            }
         }
 
 
