@@ -1,8 +1,9 @@
 ﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui.Controls.Xaml;
 using MobileClient.Services;
 using MobileClient.Views;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui;
 
 namespace MobileClient
 {
