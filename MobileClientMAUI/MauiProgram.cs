@@ -1,4 +1,6 @@
-﻿namespace MobileClientMAUI
+﻿using MobileClient.Services;
+
+namespace MobileClientMAUI
 {
     public static class MauiProgram
     {
@@ -7,6 +9,7 @@
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .RegisterAppServices()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -14,6 +17,13 @@
                 });
 
             return builder.Build();
+        }
+        public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder mauiAppBuilder)
+        {
+            DependencyService.RegisterSingleton<RestClientService>(new RestClientService());
+            DependencyService.RegisterSingleton<WebListener>(new WebListener());
+
+            return mauiAppBuilder;
         }
     }
 }

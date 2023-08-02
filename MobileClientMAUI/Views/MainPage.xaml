@@ -3,11 +3,11 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			xmlns:vm="clr-namespace:MobileClient.ViewModels"
             mc:Ignorable="d"
             x:Name="tabbedPagos"
             xmlns:views="clr-namespace:MobileClient.Views"
             x:Class="MobileClient.Views.MainPage"
+			xmlns:vm="clr-namespace:MobileClient.ViewModels"
 			x:DataType="{x:Type vm:MainPageViewModel}">
 
     <TabbedPage.Children>

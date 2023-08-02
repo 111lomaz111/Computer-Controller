@@ -4,11 +4,18 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MobileClient.Views"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Disabled"
+    xmlns:views="clr-namespace:MobileClient.Views"
+	xmlns:vm="clr-namespace:MobileClient.ViewModels"
+	x:DataType="{x:Type vm:MainPageViewModel}">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Connect">
+            <ShellContent ContentTemplate="{DataTemplate views:ConnectPage}" BindingContext="{Binding .}"  />
+        </Tab>
+        <Tab Title="Sound Controller">
+            <ShellContent ContentTemplate="{DataTemplate views:SoundControllerPage}" BindingContext="{Binding .}"/>
+        </Tab>
+    </TabBar>
 
 </Shell>
